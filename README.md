@@ -33,4 +33,8 @@ different path to save the data to. Also you can run
 arguments.
 
 Once you have downloaded the kp index you can generate the magnetic
-ephemeris.
+ephemeris. Run make_poes_magephem.py. An example script calls functions
+in the ```python if __name__ == '__main__': ''' block. The top-level 
+function calls are:
+
+```netCDF4.Dataset() -> convert_time() -> run_irbem() -> save_magephem()```

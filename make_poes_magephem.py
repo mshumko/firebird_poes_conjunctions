@@ -107,10 +107,7 @@ if __name__ == '__main__':
     split_name = save_name.split('.')
     split_name[0] = split_name[0]+'_magephem'
     save_name = split_name[0] + '.csv'
-    print(save_name)
-
-    if save_name == os.path.basename(POES_DATA_PATH):
-        raise OSError('Not going to overwrite the old file.')
+    print(f'Saving to {save_name}')
 
     save_magephem(save_name, time_array, L_OPQ, MLT_OPQ, mag_model)
 
