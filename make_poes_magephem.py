@@ -8,6 +8,8 @@ import time
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates
+import os
+
 import IRBEM
 
 def convert_time(data, verbose=True):
@@ -85,8 +87,8 @@ def get_kp_values(time_array):
 
 def save_magephem(file_name, times, L, MLT, mag_model):
     """ Saves the magnetic ephemeris to a csv file in ./data/"""
-    df = pd.DataFrame(data=[times, L, MLT], 
-                     columns=['dateTime', f'L_{model}', f'MLT_{mag_model}'])
+    df = pd.DataFrame(data=np.stack((times, L, MLT), axis=1), 
+                     columns=['dateTime', f'L_{mag_model}', f'MLT_{mag_model}'])
     df.to_csv(os.path.join('./data', file_name), index=False)
     return
 
@@ -104,7 +106,7 @@ if __name__ == '__main__':
     save_name = os.path.basename(POES_DATA_PATH)
     split_name = save_name.split('.')
     split_name[0] = split_name[0]+'_magephem'
-    save_name = '.'.join(split_name) 
+    save_name = split_name[0] + '.csv'
     print(save_name)
 
     if save_name == os.path.basename(POES_DATA_PATH):
@@ -123,6 +125,6 @@ if __name__ == '__main__':
         L = np.abs(L_OPQ[idx_good])
         ax[0].plot(time_array[idx_good], L)
         ax[1].plot(time_array[idx_good], MLT_OPQ[idx_good])
-        ax[0].set(ylabel=f'L_{model_type}')
-        ax[1].set(xlabel='UTC', ylabel=f'MLT_{model_type}')
+        ax[0].set(ylabel=f'L_{mag_model}')
+        ax[1].set(xlabel='UTC', ylabel=f'MLT_{mag_model}')
         plt.show()
