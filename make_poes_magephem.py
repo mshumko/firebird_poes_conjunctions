@@ -55,7 +55,7 @@ def run_irbem(t, data, mag_model='T89'):
         maginput=None
     elif mag_model == 'T89':
         kp = get_kp_values(t)
-        maginput = {'kp':kp}
+        maginput = {'Kp':kp}
     else:
         raise NotImplementedError
 
